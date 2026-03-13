@@ -1,6 +1,8 @@
 [phases.setup]
-nixPkgs = ["python311", "sqlite"]
-aptPkgs = ["libsqlite3-dev", "libswe-dev", "gcc", "python3-dev"]
+nixPkgs = ["python311", "sqlite", "swisseph"]
+
+[phases.install]
+cmds = ["pip install flask anthropic pyswisseph"]
 
 [start]
 cmd = "python server.py"
