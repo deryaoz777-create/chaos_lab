@@ -1,1 +1,3 @@
-swisseph
+flask
+anthropic
+pyswisseph
