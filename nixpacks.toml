@@ -1,8 +1,13 @@
 [phases.setup]
-nixPkgs = ["python311", "sqlite", "swisseph"]
+nixPkgs = ["python311", "gcc", "stdenv.cc.cc.lib", "swisseph"]
 
 [phases.install]
-cmds = ["pip install flask anthropic pyswisseph"]
+cmds = ["pip install -r requirements.txt"]
+
+[variables]
+# .so dosyasının çalışma anında bulunması için kritik değişken
+LD_LIBRARY_PATH = "/nix/store/$(ls /nix/store | grep swisseph- | head -n 1)/lib:$LD_LIBRARY_PATH"
+PYTHONUNBUFFERED = "1"
 
 [start]
 cmd = "python server.py"
