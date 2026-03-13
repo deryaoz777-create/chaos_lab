@@ -15,7 +15,7 @@ from horary_engine import (
 
 app = Flask(__name__, static_folder=".")
 
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "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")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
 # Günlük vibe cache — her burç için bir kez üretilir, gün boyunca saklanır
 _daily_cache = {}  # { "YYYY-MM-DD:BurçAdı": {text, mood, energy} }
