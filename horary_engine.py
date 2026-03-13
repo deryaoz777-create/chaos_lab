@@ -734,7 +734,7 @@ def ask_claude(prompt: str, api_key: str) -> str:
         import anthropic
         client = anthropic.Anthropic(api_key=api_key)
         message = client.messages.create(
-            model="claude-opus-4-5",
+            model="claude-sonnet-4-5-20241022",
             max_tokens=1024,
             messages=[{"role": "user", "content": prompt}]
         )
