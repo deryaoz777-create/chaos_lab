@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python311", "gcc", "stdenv.cc.cc.lib", "swisseph"]
+nixPkgs = ["python311", "gcc", "stdenv.cc.cc.lib", "swisseph", "sqlite"]
 cmds = ["chmod +x start.sh"]
 
 [phases.install]
