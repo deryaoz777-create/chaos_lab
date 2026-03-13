@@ -1,0 +1,297 @@
+{
+  "chart": {
+    "question": "Bu iş teklifi gerçekten iyi mi, kabul etmeli miyim?",
+    "datetime": "2026-03-08T20:34:49.566666",
+    "lat": 42.17,
+    "lon": 42.67,
+    "asc": 232.7408,
+    "mc": 156.1637,
+    "is_daytime": false,
+    "planets": {
+      "sun": {
+        "glyph": "☉",
+        "name_tr": "Güneş",
+        "longitude": 348.2768,
+        "sign": "Balık",
+        "sign_glyph": "♓",
+        "degree": 18,
+        "minute": 16,
+        "house": 4,
+        "retrograde": false,
+        "dignity": "peregrine",
+        "dignity_score": 0,
+        "dispositor": "jupiter"
+      },
+      "moon": {
+        "glyph": "☽",
+        "name_tr": "Ay",
+        "longitude": 230.5204,
+        "sign": "Akrep",
+        "sign_glyph": "♏",
+        "degree": 20,
+        "minute": 31,
+        "house": 12,
+        "retrograde": false,
+        "dignity": "fall",
+        "dignity_score": -4,
+        "dispositor": "mars"
+      },
+      "mercury": {
+        "glyph": "☿",
+        "name_tr": "Merkür",
+        "longitude": 345.463,
+        "sign": "Balık",
+        "sign_glyph": "♓",
+        "degree": 15,
+        "minute": 27,
+        "house": 4,
+        "retrograde": true,
+        "dignity": "detriment",
+        "dignity_score": -5,
+        "dispositor": "jupiter"
+      },
+      "venus": {
+        "glyph": "♀",
+        "name_tr": "Venüs",
+        "longitude": 2.9964,
+        "sign": "Koç",
+        "sign_glyph": "♈",
+        "degree": 2,
+        "minute": 59,
+        "house": 4,
+        "retrograde": false,
+        "dignity": "detriment",
+        "dignity_score": -5,
+        "dispositor": "mars"
+      },
+      "mars": {
+        "glyph": "♂",
+        "name_tr": "Mars",
+        "longitude": 334.9345,
+        "sign": "Balık",
+        "sign_glyph": "♓",
+        "degree": 4,
+        "minute": 56,
+        "house": 3,
+        "retrograde": false,
+        "dignity": "triplicity",
+        "dignity_score": 3,
+        "dispositor": "jupiter"
+      },
+      "jupiter": {
+        "glyph": "♃",
+        "name_tr": "Jüpiter",
+        "longitude": 105.0959,
+        "sign": "Yengeç",
+        "sign_glyph": "♋",
+        "degree": 15,
+        "minute": 5,
+        "house": 8,
+        "retrograde": true,
+        "dignity": "exaltation",
+        "dignity_score": 4,
+        "dispositor": "moon"
+      },
+      "saturn": {
+        "glyph": "♄",
+        "name_tr": "Satürn",
+        "longitude": 2.6731,
+        "sign": "Koç",
+        "sign_glyph": "♈",
+        "degree": 2,
+        "minute": 40,
+        "house": 4,
+        "retrograde": false,
+        "dignity": "fall",
+        "dignity_score": -4,
+        "dispositor": "mars"
+      }
+    },
+    "houses": [
+      {
+        "num": 1,
+        "longitude": 232.7408,
+        "sign": "Akrep",
+        "sign_glyph": "♏",
+        "degree": 22,
+        "minute": 44,
+        "ruler": "mars",
+        "ruler_tr": "Mars",
+        "meaning": "Sorucunun kendisi, beden, kişilik"
+      },
+      {
+        "num": 2,
+        "longitude": 259.3992,
+        "sign": "Yay",
+        "sign_glyph": "♐",
+        "degree": 19,
+        "minute": 23,
+        "ruler": "jupiter",
+        "ruler_tr": "Jüpiter",
+        "meaning": "Para, kayıp eşya, sahiplik"
+      },
+      {
+        "num": 3,
+        "longitude": 295.9537,
+        "sign": "Oğlak",
+        "sign_glyph": "♑",
+        "degree": 25,
+        "minute": 57,
+        "ruler": "saturn",
+        "ruler_tr": "Satürn",
+        "meaning": "Kardeşler, kısa yolculuklar, haberler"
+      },
+      {
+        "num": 4,
+        "longitude": 336.1637,
+        "sign": "Balık",
+        "sign_glyph": "♓",
+        "degree": 6,
+        "minute": 9,
+        "ruler": "jupiter",
+        "ruler_tr": "Jüpiter",
+        "meaning": "Ev, mülk, baba, gömülü şeyler"
+      },
+      {
+        "num": 5,
+        "longitude": 7.2253,
+        "sign": "Koç",
+        "sign_glyph": "♈",
+        "degree": 7,
+        "minute": 13,
+        "ruler": "mars",
+        "ruler_tr": "Mars",
+        "meaning": "Çocuklar, hamilelik, zevk, kumar"
+      },
+      {
+        "num": 6,
+        "longitude": 30.6932,
+        "sign": "Boğa",
+        "sign_glyph": "♉",
+        "degree": 0,
+        "minute": 41,
+        "ruler": "venus",
+        "ruler_tr": "Venüs",
+        "meaning": "Hastalık, hizmetçiler, küçük hayvanlar"
+      },
+      {
+        "num": 7,
+        "longitude": 52.7408,
+        "sign": "Boğa",
+        "sign_glyph": "♉",
+        "degree": 22,
+        "minute": 44,
+        "ruler": "venus",
+        "ruler_tr": "Venüs",
+        "meaning": "Eş, partner, rakip, dava"
+      },
+      {
+        "num": 8,
+        "longitude": 79.3992,
+        "sign": "İkizler",
+        "sign_glyph": "♊",
+        "degree": 19,
+        "minute": 23,
+        "ruler": "mercury",
+        "ruler_tr": "Merkür",
+        "meaning": "Ölüm, ortağın parası, gizli şeyler"
+      },
+      {
+        "num": 9,
+        "longitude": 115.9537,
+        "sign": "Yengeç",
+        "sign_glyph": "♋",
+        "degree": 25,
+        "minute": 57,
+        "ruler": "moon",
+        "ruler_tr": "Ay",
+        "meaning": "Uzak yolculuklar, din, hukuk"
+      },
+      {
+        "num": 10,
+        "longitude": 156.1637,
+        "sign": "Başak",
+        "sign_glyph": "♍",
+        "degree": 6,
+        "minute": 9,
+        "ruler": "mercury",
+        "ruler_tr": "Merkür",
+        "meaning": "Kariyer, patron, ün, devlet"
+      },
+      {
+        "num": 11,
+        "longitude": 187.2253,
+        "sign": "Terazi",
+        "sign_glyph": "♎",
+        "degree": 7,
+        "minute": 13,
+        "ruler": "venus",
+        "ruler_tr": "Venüs",
+        "meaning": "Dilekler, dostlar, iyilik"
+      },
+      {
+        "num": 12,
+        "longitude": 210.6932,
+        "sign": "Akrep",
+        "sign_glyph": "♏",
+        "degree": 0,
+        "minute": 41,
+        "ruler": "mars",
+        "ruler_tr": "Mars",
+        "meaning": "Gizli düşmanlar, hapis, büyü"
+      }
+    ],
+    "aspects": [
+      {
+        "planet_a": "sun",
+        "planet_b": "moon",
+        "aspect": "trine",
+        "applying": false,
+        "orb": 2.24
+      },
+      {
+        "planet_a": "sun",
+        "planet_b": "mercury",
+        "aspect": "conjunction",
+        "applying": true,
+        "orb": 2.81
+      },
+      {
+        "planet_a": "sun",
+        "planet_b": "jupiter",
+        "aspect": "trine",
+        "applying": true,
+        "orb": 123.18
+      },
+      {
+        "planet_a": "moon",
+        "planet_b": "mercury",
+        "aspect": "trine",
+        "applying": true,
+        "orb": 5.06
+      },
+      {
+        "planet_a": "moon",
+        "planet_b": "jupiter",
+        "aspect": "trine",
+        "applying": true,
+        "orb": 5.42
+      },
+      {
+        "planet_a": "mercury",
+        "planet_b": "jupiter",
+        "aspect": "trine",
+        "applying": false,
+        "orb": 120.37
+      },
+      {
+        "planet_a": "venus",
+        "planet_b": "saturn",
+        "aspect": "conjunction",
+        "applying": true,
+        "orb": 0.32
+      }
+    ]
+  },
+  "prompt": "Sen klasik horary astrolojide uzman, John Frawley'in \"The Horary Textbook\" kitabına göre eğitim almış bir astrologsun. William Lilly geleneğini takip ediyorsun.\n\nGörevin: Aşağıdaki harita verisini analiz edip soruya Frawley yöntemiyle horary cevabı vermek.\n\n**ÖNEMLİ ÜSLUP TALİMATI:**\n- Cevabın hem astrolojik açıdan kesinlikle doğru hem de hafifçe iğneleyici olacak\n- \"Yıldızlar sana bunu söylüyor ama sen zaten biliyordun\" havası\n- Aşırı şeker değil, ama hakaret de değil — bir ayna tutan bilge\n- Türkçe yaz\n- Önce kısa net karar ver (Evet/Hayır/Belirsiz), sonra açıkla\n- Max 200 kelime\n\n---\n\n**SORU:** Bu iş teklifi gerçekten iyi mi, kabul etmeli miyim?\n**SORU TİPİ:** Kariyer/İş\n**Tarih/Saat:** 08.03.2026 20:34\n**Gündüz/Gece:** Gece\n\n**SIGNIFICATÖRLER:**\n- Sorucunun significatörü: Mars (Lord 1) + Ay\n- Quesited significatörü: Merkür (Lord 10)\n\n**GEZEGEN POZİSYONLARI:**\n  ☉ Güneş: 18°16' Balık, Ev 4, Essential dignity: peregrine (puan: 0), Dispositor: Jüpiter, Accidental: Angular (Ev 4) — güç"
+}
