@@ -16,6 +16,7 @@ from horary_engine import (
 app = Flask(__name__, static_folder=".")
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+print(f"[STARTUP] ANTHROPIC_API_KEY {'tanımlı (' + ANTHROPIC_API_KEY[:10] + '...)' if ANTHROPIC_API_KEY else 'TANIMLI DEĞİL'}")
 
 # Günlük vibe cache — her burç için bir kez üretilir, gün boyunca saklanır
 _daily_cache = {}  # { "YYYY-MM-DD:BurçAdı": {text, mood, energy} }
@@ -71,7 +72,11 @@ def api_chart():
         # Claude yorumu
         interpretation = None
         if api_key:
+            print(f"[API] Yorum isteniyor, key: {api_key[:10]}...")
             interpretation = ask_claude(prompt, api_key)
+            print(f"[API] Sonuç: {interpretation[:100] if interpretation else 'BOŞ'}...")
+        else:
+            print("[API] API key yok, yorum atlanıyor")
 
         # Günlük vibe (Ay burcuna göre)
         moon = chart_data["planets"]["moon"]
@@ -225,4 +230,5 @@ if __name__ == "__main__":
     print("🔮 Horary Server başlıyor...")
     print("📍 http://localhost:5000")
     print("=" * 50)
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
