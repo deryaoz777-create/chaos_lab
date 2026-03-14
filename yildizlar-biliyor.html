@@ -7,12 +7,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#07060e;--card:#0d0c1a;--border:rgba(180,150,255,0.1);--border-hot:rgba(192,132,252,0.3);
-  --purple:#7c5cbf;--lavender:#b99dff;--gold:#d4a843;--rose:#e8748a;
-  --text:#e8e0f5;--muted:#6a607a;--accent:#c084fc;
+  --bg:#06050d;--card:#0e0c18;--border:rgba(200,160,255,0.08);--border-hot:rgba(220,160,80,0.35);
+  --purple:#9b6de0;--lavender:#c9aaff;--gold:#f0c060;--rose:#f08898;
+  --text:#f0e8ff;--muted:#7a6888;--accent:#e090ff;
+  --iri1:#f0a040;--iri2:#e06090;--iri3:#70a0f0;
+}
+body.light{
+  --bg:#fdf7ee;--card:#fffaf2;--border:rgba(180,130,40,0.12);--border-hot:rgba(180,120,40,0.4);
+  --purple:#7040c0;--lavender:#9060d0;--gold:#a06010;--rose:#c05060;
+  --text:#2a1a0a;--muted:#8a7060;--accent:#9050d0;
+}
+body.light::before{
+  background:radial-gradient(ellipse 80% 40% at 15% 0%,rgba(240,180,60,0.14) 0%,transparent 55%),
+  radial-gradient(ellipse 60% 50% at 85% 10%,rgba(200,80,120,0.08) 0%,transparent 50%),
+  radial-gradient(ellipse 70% 60% at 50% 100%,rgba(100,80,200,0.06) 0%,transparent 60%);
+}
+body.light .card{box-shadow:0 2px 20px rgba(160,120,40,0.06)}
+body.light .sign-btn{background:rgba(255,255,255,0.7)}
+body.light .setting-field,body.light .q-input{background:rgba(255,255,255,0.8)}
+body.light .card{background:rgba(255,250,240,0.95)}
+
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:100;
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  border-radius:20px;padding:6px 12px;cursor:pointer;
+  font-size:11px;letter-spacing:1.5px;color:var(--muted);
+  font-family:'Libre Baskerville',serif;transition:all .2s;backdrop-filter:blur(8px)}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+
+
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Libre Baskerville',Georgia,serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 40% at 15% 0%,rgba(220,140,60,0.06) 0%,transparent 55%),
+  radial-gradient(ellipse 60% 50% at 85% 10%,rgba(180,80,160,0.06) 0%,transparent 50%),
+  radial-gradient(ellipse 70% 60% at 50% 100%,rgba(80,80,200,0.05) 0%,transparent 60%)}
+}
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 .app{position:relative;z-index:1;max-width:740px;margin:0 auto;padding:0 18px 100px}
 
@@ -20,16 +50,18 @@ body{background:var(--bg);color:var(--text);font-family:'Libre Baskerville',Geor
 header{text-align:center;padding:52px 0 36px}
 .eyebrow{font-size:9px;letter-spacing:6px;color:var(--muted);text-transform:uppercase;margin-bottom:18px;display:block}
 h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weight:900;font-style:italic;line-height:1;
-  background:linear-gradient(135deg,var(--lavender) 0%,var(--rose) 45%,var(--gold) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+  background:linear-gradient(135deg,#f0c060 0%,#f090b0 35%,#c090ff 65%,#70c0ff 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;
+  filter:drop-shadow(0 0 30px rgba(220,160,80,0.25))}
 .tagline{font-style:italic;color:var(--muted);font-size:13px;letter-spacing:1px}
 
 /* kart */
 .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:20px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,var(--accent),var(--rose),transparent)}
-.card.gold-line::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.card.lav-line::before{background:linear-gradient(90deg,transparent,var(--lavender),transparent)}
-.card.mix-line::before{background:linear-gradient(90deg,transparent,var(--rose),var(--gold),transparent)}
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,#f0c060,#f090b0,#c090ff,#70c0ff,transparent)}
+.card.gold-line::before{background:linear-gradient(90deg,transparent,#f0c060,#f0a060,#e08080,transparent)}
+.card.lav-line::before{background:linear-gradient(90deg,transparent,#c090ff,#9090ff,#70c0ff,transparent)}
+.card.mix-line::before{background:linear-gradient(90deg,transparent,#f090b0,#f0c060,#c090ff,transparent)}
 .section-label{font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;display:block}
 .card-title{font-family:'Playfair Display',serif;font-size:19px;font-style:italic;color:var(--lavender)}
 
@@ -37,10 +69,12 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 .signs-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
 .sign-btn{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:10px 4px;cursor:pointer;
   text-align:center;transition:all .18s;display:flex;flex-direction:column;align-items:center;gap:3px}
+}
 .sign-btn:hover{border-color:var(--purple);background:rgba(124,92,191,0.08);transform:translateY(-1px)}
-.sign-btn.active{border-color:var(--accent);background:rgba(192,132,252,0.1);box-shadow:0 0 18px rgba(192,132,252,0.18)}
+.sign-btn.active{border-color:var(--gold);background:rgba(240,192,80,0.1);box-shadow:0 0 18px rgba(240,192,80,0.2),0 0 40px rgba(220,120,160,0.1)}
+.sign-btn.active .sign-name-sm{color:var(--gold)}
 .sign-glyph{font-size:19px}.sign-name-sm{font-size:8.5px;color:var(--muted);letter-spacing:.5px}
-.sign-btn.active .sign-name-sm{color:var(--accent)}
+
 
 /* enerji barları */
 .energy-bars{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
@@ -51,7 +85,8 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 .energy-val{font-size:10px;color:var(--muted);width:26px;text-align:right}
 .vibe-text{font-style:italic;font-size:14.5px;line-height:1.9;color:var(--text);opacity:.88;border-top:1px solid var(--border);padding-top:14px}
 .mood-badge{display:inline-block;margin-top:10px;padding:3px 11px;border-radius:20px;font-size:10px;letter-spacing:2px;
-  color:var(--accent);border:1px solid rgba(192,132,252,0.25);background:rgba(192,132,252,0.08)}
+  color:var(--gold);border:1px solid rgba(240,180,80,0.3);background:rgba(240,180,80,0.08);
+  box-shadow:0 0 12px rgba(240,180,80,0.1)}
 
 /* ay fazı */
 .moon-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
@@ -75,29 +110,36 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 .setting-label{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
 .setting-field{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;
   color:var(--text);font-family:'Libre Baskerville',serif;font-size:13px;padding:7px 11px;outline:none;transition:border-color .2s;min-width:0}
+}
 .setting-field:focus{border-color:var(--purple)}
 .q-wrap{position:relative;margin-bottom:14px}
 .q-icon{position:absolute;left:14px;top:13px;font-size:17px;pointer-events:none}
 .q-input{width:100%;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;
   color:var(--text);font-family:'Libre Baskerville',serif;font-size:15px;font-style:italic;
   padding:13px 16px 13px 44px;outline:none;transition:all .25s;resize:none;line-height:1.6}
+}
 .q-input::placeholder{color:var(--muted);font-style:italic}
 .q-input:focus{border-color:var(--purple);box-shadow:0 0 24px rgba(124,92,191,0.12)}
-.ask-btn{width:100%;background:linear-gradient(135deg,#6b3fa0,#9b5dd4);border:none;border-radius:12px;color:white;
+.ask-btn{width:100%;background:linear-gradient(135deg,#7a3fa8,#b060e0,#d07060);border:none;border-radius:12px;color:white;
   font-family:'Playfair Display',serif;font-style:italic;font-size:17px;padding:14px;cursor:pointer;
-  transition:all .25s;position:relative;overflow:hidden}
-.ask-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(107,63,160,0.4)}
+  transition:all .25s;position:relative;overflow:hidden;
+  box-shadow:0 4px 20px rgba(180,80,180,0.2),0 0 40px rgba(220,160,60,0.08)}
+.ask-btn::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,220,100,0.6),rgba(255,160,200,0.4),transparent)}
+.ask-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(180,80,180,0.35),0 0 60px rgba(220,160,60,0.12)}
 .ask-btn:active{transform:scale(.99)}
 .ask-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
 
 /* cevap */
-.oracle-resp{margin-top:18px;padding:20px;background:rgba(124,92,191,0.05);border:1px solid rgba(124,92,191,0.18);border-radius:12px;display:none}
+.oracle-resp{margin-top:18px;padding:20px;background:rgba(140,80,200,0.06);border:1px solid rgba(200,140,80,0.15);border-radius:12px;display:none;position:relative;overflow:hidden}
+.oracle-resp::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,80,0.5),rgba(220,120,160,0.4),rgba(160,160,255,0.3),transparent)}
 .oracle-resp.show{display:block;animation:fadeUp .45s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .oracle-ruling{font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
 .oracle-answer{font-style:italic;font-size:15px;line-height:1.95;color:var(--text);white-space:pre-wrap}
-.sig-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(212,168,67,0.12);
-  border:1px solid rgba(212,168,67,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:var(--gold);margin-top:12px}
+.sig-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(240,192,60,0.1);
+  border:1px solid rgba(240,192,60,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:var(--gold);margin-top:12px;
+  box-shadow:0 0 16px rgba(240,180,60,0.1)}
 
 /* harita detayları */
 .chart-details{margin-top:18px;border-top:1px solid rgba(124,92,191,0.15);padding-top:16px;display:none}
@@ -137,6 +179,7 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 </head>
 <body>
 <div id="stars"></div>
+<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">☀ Açık</button>
 
 <div class="app">
   <header>
@@ -438,6 +481,20 @@ dtEl.value=new Date(now-now.getTimezoneOffset()*60000).toISOString().slice(0,16)
 updateVibe(SIGNS[0].n);
 
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)askOracle();});
+
+function toggleTheme(){
+  const body=document.body;
+  const btn=document.getElementById('theme-toggle');
+  const isLight=body.classList.toggle('light');
+  btn.textContent=isLight?'☽ Koyu':'☀ Açık';
+  localStorage.setItem('theme',isLight?'light':'dark');
+}
+
+// Kaydedilmiş tema
+if(localStorage.getItem('theme')==='light'){
+  document.body.classList.add('light');
+  document.getElementById('theme-toggle').textContent='☽ Koyu';
+}
 
 
 function getLocation(){
