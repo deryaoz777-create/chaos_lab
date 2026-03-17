@@ -309,7 +309,7 @@ def calc_void_of_course(moon, planets, house_cusps):
     for pname, planet in planets.items():
         if pname == "moon":
             continue
-        asp = aspect_between(moon.longitude, planet.longitude, orb=10)
+        asp = aspect_between(moon.longitude, planet.longitude, orb=7)
         if asp and is_applying(moon, planet):
             degrees_to_exact = abs(moon.longitude - planet.longitude) % 360
             if degrees_to_exact > 180:
@@ -406,10 +406,10 @@ def calc_chart(question: str, dt: datetime.datetime, lat: float, lon: float) -> 
     chart.asc = ascmc[0]
     chart.mc = ascmc[1]
 
-    # Gündüz/gece kontrolü (Güneş 1-6. evde mi?)
+    # Gündüz/gece kontrolü — Güneş ufuk üstünde mi? (evler 7-12 = gündüz)
     sun_lon = swe.calc_ut(jd, swe.SUN)[0][0]
     sun_house = house_of_longitude(sun_lon, list(cusps))
-    chart.is_daytime = sun_house > 6  # Güneş üst yarıda = gündüz
+    chart.is_daytime = sun_house in range(7, 13)
 
     # Gezegen pozisyonları
     for pname, pswe in PLANETS.items():

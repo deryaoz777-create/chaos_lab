@@ -160,6 +160,20 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 .m-send-btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(176,92,181,0.4)}
 .m-send-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
 .m-feedback{margin-top:12px;font-size:13px;font-style:italic;text-align:center;min-height:20px}
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border);padding:0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{width:100%;background:none;border:none;color:var(--text);font-family:'Libre Baskerville',serif;
+  font-size:14px;text-align:left;padding:14px 0;cursor:pointer;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;transition:color .2s;line-height:1.5}
+.faq-q:hover{color:var(--lavender)}
+.faq-q.open{color:var(--lavender)}
+.faq-arrow{font-size:11px;color:var(--muted);flex-shrink:0;transition:transform .25s}
+.faq-q.open .faq-arrow{transform:rotate(180deg);color:var(--lavender)}
+.faq-a{font-size:13.5px;color:var(--muted);line-height:1.9;font-style:italic;
+  padding-bottom:14px;display:none}
+.faq-a.open{display:block;animation:fadeUp .3s ease}
+
 .gps-btn{width:100%;background:rgba(192,132,252,0.06);border:1px dashed rgba(192,132,252,0.25);border-radius:8px;
   color:var(--muted);font-family:'Libre Baskerville',serif;font-size:12px;padding:8px;cursor:pointer;
   transition:all .2s;margin-bottom:14px;letter-spacing:1px;}
@@ -242,6 +256,13 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card lav-line" id="faq-card">
+    <span class="section-label">Sıkça Sorulanlar</span>
+    <div class="card-title" style="margin-bottom:18px">Horary nedir, nasıl çalışır?</div>
+    <div id="faq-list"></div>
   </div>
 
   <p class="footer">Klasik horary · William Lilly · Regiomontanus · Gerçek söz acıtır.</p>
@@ -485,6 +506,66 @@ function buildAspList(chart){
     el.appendChild(d);
   });
 }
+
+// FAQ
+const FAQ = [
+  {
+    q: "Horary astroloji nedir?",
+    a: "Horary, bir sorunun sorulduğu tam andaki gökyüzü haritasını yorumlayan klasik bir astroloji dalıdır. William Lilly (17. yy) ve John Frawley'nin geliştirdiği bu yöntemde gezegenlerin pozisyonu, digniteleri ve birbirleriyle ilişkileri sorunun cevabını verir. 'Evet mi, hayır mı?' diye sorarsın — yıldızlar cevaplar."
+  },
+  {
+    q: "Sonuçlar ne kadar doğru?",
+    a: "Horary, doğru sorulduğunda şaşırtıcı bir kesinliğe ulaşabilir. Ancak her şey soru kalitesine bağlı: belirsiz, çok parçalı ya da gerçekten merak etmediğin bir soru net cevap vermez. Harita seni dinliyor — saçma soru sorarsan saçma harita çıkar. Biz bunu söyledik."
+  },
+  {
+    q: "Neden konum ve saat önemli?",
+    a: "Horary haritası tam o ana ait. Saat değişirse ev başlangıçları değişir, yöneticiler değişir, cevap değişir. Konum ise Ascendant'ı (1. ev başlangıcını) belirler. İstanbul'dan mı soruyorsun, Ankara'dan mı — ikisi farklı harita verir. GPS butonunu kullanman en doğrusu."
+  },
+  {
+    q: "Significatör ne demek?",
+    a: "Significatör, sorunda bir kişiyi ya da konuyu temsil eden gezegendir. 1. evin yöneticisi (Lord 1) her zaman seni — sorucuyu — temsil eder. Ay da her zaman sorucunun significatörüdür. Sorulan konunun significatörü ise soru tipine göre değişir: partner 7. ev, kariyer 10. ev, sağlık 6. ev gibi."
+  },
+  {
+    q: "Void of Course Ay ne anlama gelir?",
+    a: "Ay, mevcut burcunda hiçbir gezegene aspect yapmadan çıkacaksa 'boşlukta' (void of course) demektir. Bu haritada 'mesele askıya alınmış, sonuç gelmeyebilir ya da beklenmedik şekilde gelir' anlamına gelir. Çok ciddi bir karar için bu haritayı sormamak daha iyidir — ama sen yine de sordun."
+  },
+  {
+    q: "Retrograd gezegen ne anlama gelir?",
+    a: "Retrograd gezegen geri hareket ediyor gibi görünür (gerçekte değil, açısal illüzyon). Horary'de retrogradluk genellikle gecikmeler, geri dönüşler, tekrar gündeme gelen meseleler anlamına gelir. Eğer sorunun significatörü retrogradsa 'fikrin değişebilir ya da koşullar döner' demektir. Bunu iyi ya da kötü diye okumak soruya bağlıdır."
+  },
+  {
+    q: "Combust nedir, neden kötüdür?",
+    a: "Bir gezegen Güneş'e 8° yakınsa 'combust' (yanmış) sayılır. Bu gezegen görünmez, ezilmiş, etkisizleşmiştir. Temsil ettiği kişi ya da konu ya kendini gösteremiyor ya da görmezden geliniyor. İstisna: Cazimi — tam Güneş'in göbeğinde (17') olmak paradoks güç verir, kraliyet koruması gibi."
+  },
+  {
+    q: "Hangi soruları sorabilirim?",
+    a: "Aşk, kariyer, para, sağlık, kayıp eşya, yolculuk, mülk — hepsi klasik horary konularıdır. En iyi sorular 'Evet mi, hayır mı?' formatında, tek konulu ve gerçekten merak edilen sorulardır. 'Her şey yolunda mı?' gibi geniş sorular net cevap vermez. Kafanı en çok meşgul eden o tek soruyu sor."
+  },
+  {
+    q: "Aynı soruyu tekrar sorabilir miyim?",
+    a: "Horary geleneğinde aynı soruyu tekrar sormak pek tasvip edilmez — 'yıldızlar cevap verdi, kabul etmek istemiyor musun?' manasına gelir. Koşullar gerçekten değiştiyse veya soru özü değiştiyse tekrar sorulabilir. Sadece beğenmediğin için tekrar sormak haritayı boşa çıkarır. Yıldızlar biliyor."
+  },
+];
+
+function initFAQ(){
+  const list=document.getElementById('faq-list');
+  FAQ.forEach((item,i)=>{
+    const wrap=document.createElement('div');wrap.className='faq-item';
+    wrap.innerHTML=`<button class="faq-q" onclick="toggleFAQ(${i})"><span>${item.q}</span><span class="faq-arrow">▼</span></button>
+      <div class="faq-a" id="faq-a-${i}">${item.a}</div>`;
+    list.appendChild(wrap);
+  });
+}
+function toggleFAQ(i){
+  const btn=document.querySelectorAll('.faq-q')[i];
+  const ans=document.getElementById('faq-a-'+i);
+  const open=ans.classList.contains('open');
+  // hepsini kapat
+  document.querySelectorAll('.faq-q').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  if(!open){btn.classList.add('open');ans.classList.add('open');}
+}
+initFAQ();
 
 // son harita verisi — modal için saklanır
 let _lastChartData = null;
