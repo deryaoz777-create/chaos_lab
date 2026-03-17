@@ -7,6 +7,9 @@ Kurulum: pip install flask
 from flask import Flask, request, jsonify, send_from_directory
 import datetime
 import os
+import urllib.request
+import urllib.parse
+import json as _json
 from horary_engine import (
     calc_chart, chart_to_dict, build_frawley_prompt,
     ask_claude, detect_question_type, get_house_ruler,
@@ -16,6 +19,7 @@ from horary_engine import (
 app = Flask(__name__, static_folder=".")
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+FORMSPREE_URL = os.environ.get("FORMSPREE_URL", "")
 print(f"[STARTUP] ANTHROPIC_API_KEY {'tanımlı (' + ANTHROPIC_API_KEY[:10] + '...)' if ANTHROPIC_API_KEY else 'TANIMLI DEĞİL'}")
 
 # Günlük vibe cache — her burç için bir kez üretilir, gün boyunca saklanır
@@ -94,6 +98,47 @@ def api_chart():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/contact", methods=["POST"])
+def api_contact():
+    """
+    Kullanıcı sorusunu Formspree'ye iletir.
+    Body: { name, email, question, chart_data }
+    """
+    if not FORMSPREE_URL:
+        return jsonify({"error": "FORMSPREE_URL tanımlı değil"}), 500
+
+    data = request.json or {}
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip()
+    question = data.get("question", "").strip()
+    chart_data = data.get("chart_data", "")
+
+    if not name or not email or not question:
+        return jsonify({"error": "Ad, e-posta ve soru zorunludur"}), 400
+
+    payload = _json.dumps({
+        "name": name,
+        "email": email,
+        "question": question,
+        "chart_data": chart_data,
+    }).encode("utf-8")
+
+    try:
+        req = urllib.request.Request(
+            FORMSPREE_URL,
+            data=payload,
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            status = resp.status
+        if status in (200, 201):
+            return jsonify({"success": True})
+        return jsonify({"error": f"Formspree {status} döndürdü"}), 502
+    except Exception as e:
+        return jsonify({"error": str(e)}), 502
 
 
 @app.route("/api/vibe", methods=["POST"])

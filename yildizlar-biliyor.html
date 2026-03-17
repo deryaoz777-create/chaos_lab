@@ -169,6 +169,39 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
 @keyframes blink{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
 
 .footer{text-align:center;font-size:10px;color:var(--muted);font-style:italic;margin-top:20px;opacity:.5;letter-spacing:1px}
+
+/* Gerçek Astrologa Sor butonu */
+.astro-btn{margin-top:16px;width:100%;background:linear-gradient(135deg,#7c3a8a,#b05cb5);border:none;border-radius:12px;
+  color:white;font-family:'Playfair Display',serif;font-style:italic;font-size:16px;padding:13px;cursor:pointer;
+  transition:all .25s;display:none}
+.astro-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(176,92,181,0.4)}
+.astro-btn.show{display:block;animation:fadeUp .5s ease}
+
+/* Modal overlay */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:none;
+  align-items:center;justify-content:center;padding:18px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#0d0c1a;border:1px solid rgba(180,150,255,0.25);border-radius:18px;padding:28px;
+  width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,#b05cb5,#e8748a,transparent)}
+.modal-title{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--lavender);margin-bottom:6px}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:22px;line-height:1.7;font-style:italic}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);
+  font-size:20px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;transition:color .2s}
+.modal-close:hover{color:var(--text)}
+.m-field{width:100%;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;
+  color:var(--text);font-family:'Libre Baskerville',serif;font-size:14px;padding:11px 14px;
+  outline:none;transition:border-color .2s;margin-bottom:12px;resize:none}
+.m-field::placeholder{color:var(--muted);font-style:italic}
+.m-field:focus{border-color:var(--purple)}
+.m-label{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:5px}
+.m-send-btn{width:100%;background:linear-gradient(135deg,#7c3a8a,#b05cb5);border:none;border-radius:10px;
+  color:white;font-family:'Playfair Display',serif;font-style:italic;font-size:16px;padding:13px;
+  cursor:pointer;transition:all .25s;margin-top:4px}
+.m-send-btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(176,92,181,0.4)}
+.m-send-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.m-feedback{margin-top:12px;font-size:13px;font-style:italic;text-align:center;min-height:20px}
 .gps-btn{width:100%;background:rgba(192,132,252,0.06);border:1px dashed rgba(192,132,252,0.25);border-radius:8px;
   color:var(--muted);font-family:'Libre Baskerville',serif;font-size:12px;padding:8px;cursor:pointer;
   transition:all .2s;margin-bottom:14px;letter-spacing:1px;}
@@ -242,6 +275,7 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
       <div class="oracle-ruling" id="oracle-ruling"></div>
       <div class="oracle-answer" id="oracle-answer"></div>
       <div class="sig-badge" id="sig-badge" style="display:none"></div>
+      <button class="astro-btn" id="astro-btn" onclick="openContactModal()">🔭 Gerçek Astrologa Sor</button>
       <div class="chart-details" id="chart-details">
         <div class="details-label">Harita Detayları</div>
         
@@ -254,6 +288,23 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(36px,8vw,58px);font-weig
   </div>
 
   <p class="footer">Klasik horary · William Lilly · Regiomontanus · Gerçek söz acıtır.</p>
+</div>
+
+<!-- Gerçek Astrologa Sor Modalı -->
+<div class="modal-overlay" id="contact-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeContactModal()">✕</button>
+    <div class="modal-title">✦ Gerçek Astrologa Sor</div>
+    <p class="modal-sub">Yıldızlar cevapladı ama sen hâlâ emin değilsen — bir uzman sana yardımcı olabilir. Harita bilgini ve sorunuzu iletiyoruz.</p>
+    <label class="m-label">Adın Soyadın</label>
+    <input type="text" class="m-field" id="c-name" placeholder="Adınız Soyadınız">
+    <label class="m-label">E-posta</label>
+    <input type="email" class="m-field" id="c-email" placeholder="ornek@mail.com">
+    <label class="m-label">Sorunuz / Notunuz</label>
+    <textarea class="m-field" id="c-question" rows="3" placeholder="Astrolog için eklemek istediğiniz notlar..."></textarea>
+    <button class="m-send-btn" id="c-send-btn" onclick="submitContact()">Gönder ✦</button>
+    <div class="m-feedback" id="c-feedback"></div>
+  </div>
 </div>
 
 <script>
@@ -391,6 +442,9 @@ async function askOracle(){
     const sig=document.getElementById('sig-badge');sig.style.display='inline-flex';
     sig.innerHTML=`⚡ Significatör: ${data.lord1} · Ay: ${data.moon_sign}`;
     if(data.chart){renderChart(data.chart);document.getElementById('chart-details').className='chart-details show';}
+    _lastChartData=data.chart||null;
+    _lastQuestion=q;
+    document.getElementById('astro-btn').className='astro-btn show';
   }catch(e){ans.textContent='Server bağlantısı yok. python server.py çalışıyor mu?';}
   btn.disabled=false;
 }
@@ -473,6 +527,43 @@ function buildAspList(chart){
       +`<span style="color:var(--muted);font-size:10px">${asp.applying?'→':'←'} ${asp.orb.toFixed(1)}°</span>`;
     el.appendChild(d);
   });
+}
+
+// son harita verisi — modal için saklanır
+let _lastChartData = null;
+let _lastQuestion = '';
+
+function openContactModal(){
+  document.getElementById('c-name').value='';
+  document.getElementById('c-email').value='';
+  document.getElementById('c-question').value=_lastQuestion;
+  document.getElementById('c-feedback').textContent='';
+  document.getElementById('c-send-btn').disabled=false;
+  document.getElementById('contact-modal').classList.add('open');
+}
+function closeContactModal(){
+  document.getElementById('contact-modal').classList.remove('open');
+}
+document.getElementById('contact-modal').addEventListener('click',function(e){
+  if(e.target===this)closeContactModal();
+});
+
+async function submitContact(){
+  const name=document.getElementById('c-name').value.trim();
+  const email=document.getElementById('c-email').value.trim();
+  const question=document.getElementById('c-question').value.trim();
+  const fb=document.getElementById('c-feedback');
+  if(!name||!email){fb.style.color='#f87171';fb.textContent='Ad ve e-posta zorunludur.';return;}
+  const btn=document.getElementById('c-send-btn');
+  btn.disabled=true;fb.style.color='var(--muted)';fb.textContent='Gönderiliyor...';
+  try{
+    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,email,question,
+        chart_data:_lastChartData?JSON.stringify(_lastChartData):''})});
+    const d=await r.json();
+    if(d.success){fb.style.color='#86efac';fb.textContent='✓ Mesajınız iletildi. Astrolog en kısa sürede dönecek.';}
+    else{fb.style.color='#f87171';fb.textContent='Hata: '+(d.error||'bilinmiyor');btn.disabled=false;}
+  }catch(e){fb.style.color='#f87171';fb.textContent='Bağlantı hatası.';btn.disabled=false;}
 }
 
 // init
